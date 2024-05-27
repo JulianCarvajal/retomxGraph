@@ -36,3 +36,12 @@ export const insertEdge = (graph) => {
       alert('Necesitas mínimo dos nodos para insertar un vértice');
     }
 };
+
+export const deleteCell = (graph, cell) => {
+    graph.getModel().beginUpdate();
+    try {
+      graph.removeCells([cell]);
+    } finally {
+      graph.getModel().endUpdate();
+    }
+};

@@ -5,7 +5,7 @@ import mxGraphFactory from 'mxgraph';
 import Toolbar from './Toolbar';
 import GraphContainer from './GraphContainer';
 import XMLViewer from './XmlViewer'; // Importar XMLViewer
-import { getGraphXML, insertNode, insertEdge } from '../utils/graphUtils';
+import { getGraphXML, insertNode, insertEdge, deleteCell } from '../utils/graphUtils';
 import './GraphEditor.css';
 
 const mx = mxGraphFactory();
@@ -14,6 +14,7 @@ const GraphEditor = () => {
   const graphRef = useRef(null);
   const containerRef = useRef(null);
   const [xml, setXml] = useState('');
+  const [selectedCell, setSelectedCell] = useState(null);
 
   useEffect(() => {
     const { mxGraph, mxRubberband, mxEvent } = mx;
@@ -24,10 +25,19 @@ const GraphEditor = () => {
 
     // Escuchador para modificar cuando el grafo cambia
     graph.getModel().addListener(mxEvent.CHANGE, () => {
-        updateXml();
+      updateXml();
     });
 
+    // Escuchador para la selección de celdas (Necesario para la eliminación)
+    const selectionHandler = (sender, evt) => {
+      const cell = graph.getSelectionCell();
+      setSelectedCell(cell);
+    };
+
+    graph.getSelectionModel().addListener(mxEvent.CHANGE, selectionHandler);
+
     return () => {
+      graph.getSelectionModel().removeListener(selectionHandler);
       graph.destroy();
     };
   }, []);
@@ -47,10 +57,18 @@ const GraphEditor = () => {
     updateXml();
   };
 
+  const handleDelete = () => {
+    if (selectedCell) {
+      deleteCell(graphRef.current, selectedCell);
+      setSelectedCell(null); // Reset selected cell after deletion
+      updateXml();
+    }
+  };
+
   return (
     <>
         <div className="graph-editor">
-            <Toolbar onInsertNode={handleInsertNode} onInsertEdge={handleInsertEdge} />
+            <Toolbar onInsertNode={handleInsertNode} onInsertEdge={handleInsertEdge} onDelete={handleDelete} />
             <GraphContainer ref={containerRef} />
         </div>
         <XMLViewer xml={xml} />
