@@ -16,11 +16,16 @@ const GraphEditor = () => {
   const [xml, setXml] = useState('');
 
   useEffect(() => {
-    const { mxGraph, mxRubberband } = mx;
+    const { mxGraph, mxRubberband, mxEvent } = mx;
     const graph = new mxGraph(containerRef.current);
     new mxRubberband(graph);
 
     graphRef.current = graph;
+
+    // Escuchador para modificar cuando el grafo cambia
+    graph.getModel().addListener(mxEvent.CHANGE, () => {
+        updateXml();
+    });
 
     return () => {
       graph.destroy();
