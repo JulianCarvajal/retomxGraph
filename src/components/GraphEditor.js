@@ -1,19 +1,21 @@
 // Es el componente principal que gestiona la instancia del grafo 
 // y la comunicación entre los componentes.
 import React, { useEffect, useRef, useState } from 'react';
-import mxGraph from 'mxgraph';
+import mxGraphFactory from 'mxgraph';
 import Toolbar from './Toolbar';
 import GraphContainer from './GraphContainer';
+import XMLViewer from './XmlViewer'; // Importar XMLViewer
 import { getGraphXML, insertNode } from '../utils/graphUtils';
 
-// Componente del editor
+const mx = mxGraphFactory();
+
 const GraphEditor = () => {
   const graphRef = useRef(null);
   const containerRef = useRef(null);
   const [xml, setXml] = useState('');
 
   useEffect(() => {
-    const { mxGraph, mxRubberband } = mxGraph();
+    const { mxGraph, mxRubberband } = mx;
     const graph = new mxGraph(containerRef.current);
     new mxRubberband(graph);
 
