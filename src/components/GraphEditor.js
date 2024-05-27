@@ -47,8 +47,8 @@ const GraphEditor = () => {
     setXml(xml);
   };
 
-  const handleInsertNode = () => {
-    insertNode(graphRef.current);
+  const handleInsertNode = (shapeType) => {
+    insertNode(graphRef.current, shapeType);
     updateXml();
   };
 
@@ -68,7 +68,12 @@ const GraphEditor = () => {
   return (
     <>
         <div className="graph-editor">
-            <Toolbar onInsertNode={handleInsertNode} onInsertEdge={handleInsertEdge} onDelete={handleDelete} />
+            <Toolbar onInsertRectangle={() => handleInsertNode('rectangle')}
+            onInsertCircle={() => handleInsertNode('circle')}
+            onInsertTriangle={() => handleInsertNode('triangle')}
+            onInsertRhombus={() => handleInsertNode('rhombus')}
+            onInsertHexagon={() => handleInsertNode('hexagon')}
+            onInsertEdge={handleInsertEdge} onDelete={handleDelete} />
             <GraphContainer ref={containerRef} />
         </div>
         <XMLViewer xml={xml} />

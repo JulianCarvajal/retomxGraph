@@ -9,11 +9,30 @@ export const getGraphXML = (graph) => {
   return mxUtils.getPrettyXml(node);
 };
 
-export const insertNode = (graph) => {
+export const insertNode = (graph, shapeType) => {
   const parent = graph.getDefaultParent();
   graph.getModel().beginUpdate();
   try {
-    graph.insertVertex(parent, null, 'Node', 20, 20, 80, 30);
+    switch (shapeType) {
+      case 'rectangle':
+        graph.insertVertex(parent, null, 'Rectangulo', 20, 20, 120, 60);
+        break;
+      case 'circle':
+        graph.insertVertex(parent, null, 'Elipse', 20, 20, 60, 60, 'shape=ellipse');
+        break;
+      case 'triangle':
+        graph.insertVertex(parent, null, 'Triangulo', 20, 20, 60, 60, 'shape=triangle');
+        break;
+      case 'rhombus':
+        graph.insertVertex(parent, null, 'Rombo', 20, 20, 80, 80, 'shape=rhombus');
+        break;
+      case 'hexagon':
+        graph.insertVertex(parent, null, 'Hexagono', 20, 20, 80, 80, 'shape=hexagon');
+        break;
+      default:
+        graph.insertVertex(parent, null, 'Rectangulo', 20, 20, 120, 60);
+        break;
+    }
   } finally {
     graph.getModel().endUpdate();
   }
