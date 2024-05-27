@@ -5,7 +5,7 @@ import mxGraphFactory from 'mxgraph';
 import Toolbar from './Toolbar';
 import GraphContainer from './GraphContainer';
 import XMLViewer from './XmlViewer'; // Importar XMLViewer
-import { getGraphXML, insertNode, insertEdge, deleteCell } from '../utils/graphUtils';
+import { getGraphXML, insertNode, insertEdge, deleteCell, groupCells, ungroupCells } from '../utils/graphUtils';
 import './GraphEditor.css';
 
 const mx = mxGraphFactory();
@@ -65,15 +65,34 @@ const GraphEditor = () => {
     }
   };
 
+  const handleGroup = () => {
+    const cells = graphRef.current.getSelectionCells();
+    if (cells.length > 1) {
+      groupCells(graphRef.current, cells);
+      updateXml();
+    }
+  };
+
+  const handleUngroup = () => {
+    const cells = graphRef.current.getSelectionCells();
+    if (cells.length === 1 && cells[0].isVertex()) {
+      ungroupCells(graphRef.current, cells[0]);
+      updateXml();
+    }
+  };
+
   return (
     <>
         <div className="graph-editor">
-            <Toolbar onInsertRectangle={() => handleInsertNode('rectangle')}
-            onInsertCircle={() => handleInsertNode('circle')}
-            onInsertTriangle={() => handleInsertNode('triangle')}
-            onInsertRhombus={() => handleInsertNode('rhombus')}
-            onInsertHexagon={() => handleInsertNode('hexagon')}
-            onInsertEdge={handleInsertEdge} onDelete={handleDelete} />
+            <Toolbar 
+              onInsertRectangle={() => handleInsertNode('rectangle')}
+              onInsertCircle={() => handleInsertNode('circle')}
+              onInsertTriangle={() => handleInsertNode('triangle')}
+              onInsertRhombus={() => handleInsertNode('rhombus')}
+              onInsertHexagon={() => handleInsertNode('hexagon')}
+              onInsertEdge={handleInsertEdge} onDelete={handleDelete}
+              onGroup={handleGroup}
+              onUngroup={handleUngroup} />
             <GraphContainer ref={containerRef} />
         </div>
         <XMLViewer xml={xml} />

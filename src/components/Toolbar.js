@@ -2,7 +2,7 @@
 import React from 'react';
 import './Toolbar.css';
 
-const Toolbar = ({ onInsertRectangle, onInsertCircle, onInsertTriangle, onInsertRhombus, onInsertHexagon, onInsertEdge, onDelete }) => {
+const Toolbar = ({ onInsertRectangle, onInsertCircle, onInsertTriangle, onInsertRhombus, onInsertHexagon, onInsertEdge, onDelete, onGroup, onUngroup }) => {
   return (
     <div className="toolbar">
       <button onClick={onInsertRectangle}>Rectangulo</button>
@@ -12,6 +12,8 @@ const Toolbar = ({ onInsertRectangle, onInsertCircle, onInsertTriangle, onInsert
       <button onClick={onInsertHexagon}>Hexagono</button>
       <button onClick={onInsertEdge}>Arista</button>
       <button onClick={onDelete}>Eliminar</button>
+      <button onClick={onGroup}>Agrupar</button>
+      <button onClick={onUngroup}>Desagrupar</button>
     </div>
   );
 };

@@ -56,6 +56,25 @@ export const insertEdge = (graph) => {
     }
 };
 
+export const groupCells = (graph, cells) => {
+  graph.getModel().beginUpdate();
+  try {
+    const group = graph.groupCells(null, 0, cells);
+    graph.setSelectionCell(group);
+  } finally {
+    graph.getModel().endUpdate();
+  }
+};
+
+export const ungroupCells = (graph, cell) => {
+  graph.getModel().beginUpdate();
+  try {
+    graph.ungroupCells([cell]);
+  } finally {
+    graph.getModel().endUpdate();
+  }
+};
+
 export const deleteCell = (graph, cell) => {
     graph.getModel().beginUpdate();
     try {
