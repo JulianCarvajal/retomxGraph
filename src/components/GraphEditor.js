@@ -5,7 +5,8 @@ import mxGraphFactory from 'mxgraph';
 import Toolbar from './Toolbar';
 import GraphContainer from './GraphContainer';
 import XMLViewer from './XmlViewer'; // Importar XMLViewer
-import { getGraphXML, insertNode } from '../utils/graphUtils';
+import { getGraphXML, insertNode, insertEdge } from '../utils/graphUtils';
+import './GraphEditor.css';
 
 const mx = mxGraphFactory();
 
@@ -36,12 +37,19 @@ const GraphEditor = () => {
     updateXml();
   };
 
+  const handleInsertEdge = () => {
+    insertEdge(graphRef.current);
+    updateXml();
+  };
+
   return (
-    <div className="graph-editor">
-      <Toolbar onInsertNode={handleInsertNode} />
-      <GraphContainer ref={containerRef} />
-      <XMLViewer xml={xml} />
-    </div>
+    <>
+        <div className="graph-editor">
+            <Toolbar onInsertNode={handleInsertNode} onInsertEdge={handleInsertEdge} />
+            <GraphContainer ref={containerRef} />
+        </div>
+        <XMLViewer xml={xml} />
+    </>
   );
 };
 

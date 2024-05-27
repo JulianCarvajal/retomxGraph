@@ -1,5 +1,6 @@
 // Componente que muestra el XML del graph
 import React from 'react';
+import './XmlViewer.css';
 
 const XMLViewer = ({ xml }) => {
   return (
