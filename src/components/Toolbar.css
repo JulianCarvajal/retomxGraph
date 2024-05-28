@@ -1,6 +1,27 @@
 .toolbar {
-    height: 100%;
-    background: #eee;
-    display: flex;
-    align-items: center;
-  }
+  display: grid;
+  padding: 10px 0;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+  align-items: center;
+  justify-items: center;
+}
+
+.toolbar button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 1em;
+  border-radius: 5px;
+  outline: none;
+}
+
+.toolbar button:hover {
+  background-color: #218838;
+}
+
+.toolbar button:active {
+  background-color: #1e7e34;
+}

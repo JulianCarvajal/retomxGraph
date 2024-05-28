@@ -1,6 +1,6 @@
 .graph-editor {
     display: grid;
-    grid-template-rows: 80px 1fr;
+    grid-template-rows: auto 1fr;
     width: 80%;
     margin: 0 auto;
   }

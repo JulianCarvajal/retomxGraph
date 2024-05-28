@@ -1,11 +1,33 @@
 .App {
   display: grid;
+  grid-template-rows: auto 1fr;
   grid-template-columns: 2fr 1fr;
   height: 80vh;
   width: 100%;
 }
 
-.graph-container {
-  flex-grow: 1;
-  border: 1px solid #ccc;
+.mxRubberband {
+  border: 1px dashed blue;
+  background-color: rgba(0, 0, 255, 0.1);
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f2f2f2;
+  color: #333;
+}
+
+header {
+  grid-column: 1 / -1;
+  background-color: #007bff;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+h1 {
+  margin: 0;
+  font-size: 2.5em;
 }
