@@ -18,3 +18,22 @@ textarea {
   padding: 10px;
   font-family: monospace;
 }
+
+.xml-viewer button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 1em;
+  border-radius: 5px;
+  outline: none;
+}
+
+.xml-viewer button:hover {
+  background-color: #218838;
+}
+
+.xml-viewer button:active {
+  background-color: #1e7e34;
+}
