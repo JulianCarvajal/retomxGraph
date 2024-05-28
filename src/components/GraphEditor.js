@@ -17,9 +17,11 @@ const GraphEditor = () => {
   const [selectedCell, setSelectedCell] = useState(null);
 
   useEffect(() => {
-    const { mxGraph, mxRubberband, mxEvent } = mx;
+    const { mxGraph, mxRubberband, mxEvent, mxVertexHandler } = mx;
     const graph = new mxGraph(containerRef.current);
     new mxRubberband(graph);
+
+    mxVertexHandler.prototype.rotationEnabled = true;
 
     graphRef.current = graph;
 
